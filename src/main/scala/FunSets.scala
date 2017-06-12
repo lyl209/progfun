@@ -61,7 +61,7 @@ object FunSets {
   def forall(s: Set, p: Int => Boolean): Boolean = {
 
     def iter(a: Int): Boolean = {
-      if (a == bound) true
+      if (a > bound) true
       else if (contains(s, a) && !p(a)) false
       else iter(a + 1)
     }
@@ -96,6 +96,10 @@ object FunSets {
 
   /**
     * Returns a set transformed by applying `f` to each element of `s`.
+
+[Test Description] map: {1,3,4,5,7,1000}
+[Observed Error] "{0,2,3,4,6[]}" did not equal "{0,2,3,4,6[,999]}"
+[Lost Points] 10
     */
   def map(s: Set, f: Int => Int): Set =
     (y: Int) => exists(s, (x: Int) => y == f(x))
