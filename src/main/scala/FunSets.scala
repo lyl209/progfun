@@ -72,19 +72,33 @@ object FunSets {
   /**
     * Returns whether there exists a bounded integer within `s`
     * that satisfies `p`.
+
+  Using forall, implement a function exists which tests whether a set contains at least
+  one element for which the given predicate is true. Note that the functions forall
+  and exists behave like the universal and existential quantifiers of first-order logic.
+
+[Test Description] exists should be implemented in terms of forall
+[Observed Error] InstrumentedSuite.this.wasCalled(call) was false expected forall to be called
+[Lost Points] 10
+
     */
   def exists(s: Set, p: Int => Boolean): Boolean = {
-    def iter(a: Int): Boolean = {
-      if (contains(s, a)) p(a)
+
+    !forall(s, (x: Int) => !p(x))
+
+    /*def iter(a: Int): Boolean = {
+      if (a == bound) false
+      else if (contains(s, a) && p(a)) true
       else iter(a + 1)
     }
-    iter(-bound)
+    iter(-bound)*/
   }
 
   /**
     * Returns a set transformed by applying `f` to each element of `s`.
     */
-  def map(s: Set, f: Int => Int): Set = ???
+  def map(s: Set, f: Int => Int): Set =
+    (y: Int) => exists(s, (x: Int) => y == f(x))
 
   /**
     * Displays the contents of a set
