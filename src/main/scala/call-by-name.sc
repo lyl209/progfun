@@ -1,10 +1,6 @@
-def myFunction(): Int = {
-  2 + 5
-}
+def myFunction(): Int = 2 + 5
 
-def myNothing(): Unit = {
-
-}
+def myNothing(): Unit = {}
 
 def byValue(x: Int, y: Int) = x + y
 
@@ -16,15 +12,19 @@ byValue(1, 2 + 5)
 
 byName(1, 2 + 5)
 
-// Both are OK, but notice the difference in implementation
-// Notice byName accepts a function since function is first-class value
+// Notice byName & byValue both accept
+// a function since function is first-class value
 // Functional languages treat functions as first-class values.
 // This means that, like any other value, a function can be passed as a
 // parameter and returned as a result.
+
+// The difference is when to evaluate
 byName(1, myFunction)
 //byName(1, myNothing) // Not allowed
-byAnonymousFunc(1, myFunction)
+byValue(1, myFunction)
 
+
+byAnonymousFunc(1, myFunction)
 // byAnonymousFunc(1, 3 + 6) // Not allowed!
 
 // Which proves the following 2 are different!!
@@ -65,6 +65,9 @@ def test(name: String)(body: => Any): Int = {
 // The only way to not pass in () is passing a block
 
 test("hello"){1+2+3} // passing a block
+
+// Is {} similar to () in this case?
+test("hello")(1+2+3)
 
 test("hello")({1+2+3})
 
