@@ -1,2 +1,2 @@
-## Notes for Functional Programming Principles in Scala
+## Learning Scala
 Notes, playground, experiments, etc.
