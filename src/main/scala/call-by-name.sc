@@ -39,7 +39,7 @@ byName(1, myFunction())
 // The def form is “by-name”,
 // its right hand side is evaluated on each use.
 
-def byNameParam: Int = 1+2+3
+def byNameParam: Int = 1 + 2 + 3
 
 byNameParam
 
@@ -51,3 +51,41 @@ byNameParam
 // The right-hand side of a val definition is evaluated
 // at the point of the definition itself.
 val byValueParam: Int = 1+2+3
+
+
+def anyFnunction(): Unit = {
+}
+
+def anyBody: Any = {1+2}
+
+def test(name: String)(body: => Any): Int = {
+  5
+}
+
+// The only way to not pass in () is passing a block
+
+test("hello"){1+2+3} // passing a block
+
+test("hello")({1+2+3})
+
+test("hola")(anyBody)
+
+test("pass in func")(anyFnunction)
+
+test("pass in func value")(anyFnunction())
+
+
+// The only way to not pass in () is passing a block
+//
+// ▶ A block is delimited by braces { ... }.
+// { val x = f(3)
+//   x * x
+// }
+// ▶ It contains a sequence of definitions or expressions.
+//
+// ▶ The last element of a block is an expression that defines its value.
+//
+// ▶ This return expression can be preceded by auxiliary definitions.
+//
+// ▶ Blocks are themselves expressions; a block may appear
+//   everywhere an expression can.
