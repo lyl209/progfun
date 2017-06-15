@@ -69,6 +69,12 @@ test("hello"){1+2+3} // passing a block
 // Is {} similar to () in this case?
 test("hello")(1+2+3)
 
+// Curly braces and parenthesis can be use interchangeably:
+// when passing parameters to method calls!
+test{"oha"}(5)
+
+test("call"){1+2;3+4;5+6;}
+
 test("hello")({1+2+3})
 
 test("hola")(anyBody)
