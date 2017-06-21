@@ -107,16 +107,13 @@ abstract class TweetSet {
     */
   def foreach(f: Tweet => Unit): Unit
 
-
-  //TO remove
-  /*def asSet(tweets: TweetSet): Set[Tweet] = {
+  def asSet(tweets: TweetSet): Set[Tweet] = {
     var res = Set[Tweet]()
     tweets.foreach(res += _)
     res
   }
 
   def size(set: TweetSet): Int = asSet(set).size
-  */
 }
 
 class Empty extends TweetSet {
