@@ -97,6 +97,7 @@ translate("7225247386")
 
 /*
 Scala’s immutable collections are:
+
   ▶ easy to use: few steps to do the job.
   ▶ concise: one word replaces a whole loop.
   ▶ safe: type checker is really good at catching errors.
