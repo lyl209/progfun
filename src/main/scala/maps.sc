@@ -163,3 +163,16 @@ p3 + p4
 //
 // The version using ++
 // (v) The version using foldLeft
+
+/*
+Each of these bindings will be immediately added to our terms Maps so, we build up
+the result directly, whereas before, we would create another list of terms
+that contain the adjusted terms and then we would concatenate this list to
+the original one.
+
+new Poly(terms ++ (other.terms map adjust))
+new Polynom((other.terms foldLeft terms)(addTerm))
+
+So the version with foldLeft avoids this creation of
+the intermediate list data structure.
+ */
