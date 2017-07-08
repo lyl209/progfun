@@ -86,6 +86,10 @@ def show(queens: List[Int]) = {
 
 queens(4) map show
 
+(queens(5) map show) mkString "\n"
+
+(queens(8) take 3 map show) mkString "\n"
+
 /*
 scala.collection.immutable.Set[String] = Set(
   * * X *

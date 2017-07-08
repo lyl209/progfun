@@ -1,3 +1,5 @@
+import scala.collection.immutable
+import scala.collection.immutable.NumericRange
 // Vector implementations is shallow tree
 
 // 32 elements
@@ -65,6 +67,18 @@ val s: Range = 1 to 5
 1 to 10 by 3
 6 to 1 by -2
 */
+
+val lambdas: NumericRange[Double] = (0.1 to 0.9 by 0.2)
+lambdas.foreach(l => print(l + ","))
+
+lambdas.toArray
+
+(2 to 5).foreach(x => println(x))
+(-5 to -2).foreach(x => println(x))
+
+val alphas: immutable.IndexedSeq[Double] = (2 to 5) map (x => math.pow(10, -x))
+
+alphas.toArray
 
 /*
 xs exists p true if there is an element x of xs such that p(x) holds,
