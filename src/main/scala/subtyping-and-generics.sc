@@ -8,6 +8,10 @@
 // Subtyping, where we can pass instances of a subtype where a base type was required.
 // And, generics, where we can parameterize types with other types.
 
+// Generally, the notation
+//  ▶ S <: T means: S is a subtype of T, and
+//  ▶ S >: T means: S is a supertype of T, or T is a subtype of S.
+
 
 // Type Bounds
 
@@ -15,7 +19,7 @@
 // def assertAllPos[S <: IntSet](r: S): S = ...
 
 // 2. Lower bounds
-// def assertAllPos[S >: NonEmpty](r: S): S = ...
+// def assertAllPos[S :> NonEmpty](r: S): S = ...
 
 // 3. Mixed bounds
 // [S >: NonEmpty <: IntSet]
@@ -60,6 +64,7 @@
 The Liskov Substitution Principle
   The following principle, stated by Barbara Liskov, tells us when a
 type can be a subtype of another.
+
   If A <: B, then everything one can to do with a value of
 type B one should also be able to do with a value of type A.
 

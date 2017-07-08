@@ -33,10 +33,15 @@
 // Get 2 copies of vectors
 
 
-// Collection Hierarchy
-//   Iterable
-//  /    \   \
-// Seq, Set, Map
+/*
+
+Collection Hierarchy
+
+    Iterable
+  /   |    \
+Seq   Set   Map
+
+*/
 
 // Arrays and Strings support the same operations as Seq and can
 // implicitly be converted to sequences where needed.

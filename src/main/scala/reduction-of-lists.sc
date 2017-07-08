@@ -24,7 +24,7 @@ def product(xs: List[Int]) = (1 :: xs) reduceLeft (_ * _)
 */
 
 // FoldLeft
-// foldLeft is like reduceLEft but takes an accumulator z,
+// foldLeft is like reduceLeft but takes an accumulator z,
 // as an additional parameter
 // (List(x1, ..., xn) foldLeft z)(op) = (...(z op x1) op ... ) op xn
 
