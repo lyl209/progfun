@@ -55,11 +55,11 @@ Nil ++ ys = ys                      // 1st clause
 
 // left hand side
 // (Nil ++ ys) + zs
-// = ys ++ zs     // by 1st clause of ++
+// = ys ++ zs           // by 1st clause of ++
 
 // right hand side
 // Nil ++ (ys ++ zs)
-// = ys ++ zs     // by 1st clause of ++
+// = ys ++ zs           // by 1st clause of ++
 
 // Induction Step x :: xs
 
@@ -80,7 +80,8 @@ Nil ++ ys = ys                      // 1st clause
 // Show by induction on xs that xs ++ Nil = xs
 
 // Base Case: Nil
-// Nil ++ Nil
+
+// Nil ++ Nil         // by 1st clause
 // = Nil
 
 // Induction Step x :: xs
@@ -88,7 +89,7 @@ Nil ++ ys = ys                      // 1st clause
 // left hand
 // (x :: xs) ++ Nil
 // = x :: (xs ++ Nil)     // by 2nd
-// = x :: xs              // by hypothesis
+// = x :: xs              // by induction hypothesis
 
 // right hand
 // x :: xs
