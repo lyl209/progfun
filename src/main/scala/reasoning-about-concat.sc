@@ -27,11 +27,12 @@ def factorial(n: Int): Int =
 // = power(2, n + 1)
 
 
-// Referential Transparency
-//
+// Referential Transparency principle
+
 
 // Example: structural induction
 
+// Let's show that
 // (xs ++ ys) ++ zs = xs ++ (ys ++ zs)
 
 /*
@@ -41,9 +42,57 @@ def concat[T](xs: List[T], ys: List[T]) = xs match {
   case x :: xs1 => x :: concat(xs1, ys)
 }
 
-Nil ++ ys = ys // 1st clause
+distill two defining clauses of ++:
+
+Nil ++ ys = ys                      // 1st clause
 (x :: xs1) ++ ys = x :: (xs1 ++ ys) // 2nd clause
 
 */
 
+// Use structural induction on xs
+
 // Base Case: Nil
+
+// left hand side
+// (Nil ++ ys) + zs
+// = ys ++ zs     // by 1st clause of ++
+
+// right hand side
+// Nil ++ (ys ++ zs)
+// = ys ++ zs     // by 1st clause of ++
+
+// Induction Step x :: xs
+
+// left hand
+// ((x :: xs) ++ ys) ++ zs
+// = (x :: (xs ++ ys)) ++ zs        // by 2nd clause of ++
+// = x :: ((xs ++ ys) ++ zs)        // by 2nd clause of ++
+// = x :: (xs ++ (ys ++ zs))        // by induction hypothesis
+
+// right hand
+// (x :: xs) ++ (ys ++ zs)
+// = x :: (xs ++ (ys ++ zs))        // by 2nd clause of ++
+
+// left = right
+
+
+// Exercise
+// Show by induction on xs that xs ++ Nil = xs
+
+// Base Case: Nil
+// Nil ++ Nil
+// = Nil
+
+// Induction Step x :: xs
+
+// left hand
+// (x :: xs) ++ Nil
+// = x :: (xs ++ Nil)     // by 2nd
+// = x :: xs              // by hypothesis
+
+// right hand
+// x :: xs
+
+// left = right
+
+
