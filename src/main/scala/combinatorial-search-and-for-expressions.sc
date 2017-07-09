@@ -1,21 +1,18 @@
 import scala.collection.immutable
-// Example
-// Given a positive interge n, find all pairs of positive integers i and j,
+// Example:
+// Given a positive integer n, find all pairs of positive integers i and j
 // with 1 <= j < i < n such that i + j is prime.
 
 val n = 7
-val xss = (1 until n) map (i => (1 until i) map (j => (i, j)))
+(1 until n) map (i =>
+  (1 until i) map (j => (i, j)))
 
-// Vector of vectos
-// scala.collection.immutable.IndexedSeq[scala.collection.immutable.IndexedSeq[(Int, Int)]] =
-// Vector(
-// Vector(),
-// Vector((2,1)),
-// Vector((3,1), (3,2)),
+// scala.collection.immutable.IndexedSeq
+// [scala.collection.immutable.IndexedSeq[(Int, Int)]] =
+// Vector(Vector(), Vector((2,1)), Vector((3,1), (3,2)),
 // Vector((4,1), (4,2), (4,3)),
 // Vector((5,1), (5,2), (5,3), (5,4)),
 // Vector((6,1), (6,2), (6,3), (6,4), (6,5)))
-
 
 /*
 
@@ -109,4 +106,6 @@ def scalarProduct(xs: List[Double], ys: List[Double]) : Double =
 
 
 
+=======
+>>>>>>> Stashed changes
 
