@@ -30,5 +30,20 @@ def factorial(n: Int): Int =
 // Referential Transparency
 //
 
+// Example: structural induction
 
+// (xs ++ ys) ++ zs = xs ++ (ys ++ zs)
 
+/*
+
+def concat[T](xs: List[T], ys: List[T]) = xs match {
+  case List() => ys
+  case x :: xs1 => x :: concat(xs1, ys)
+}
+
+Nil ++ ys = ys // 1st clause
+(x :: xs1) ++ ys = x :: (xs1 ++ ys) // 2nd clause
+
+*/
+
+// Base Case: Nil
