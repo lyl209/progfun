@@ -4,7 +4,7 @@ import scala.collection.immutable
 // with 1 <= j < i < n such that i + j is prime.
 
 val n = 7
-(1 until n) map (i =>
+val xss = (1 until n) map (i =>
   (1 until i) map (j => (i, j)))
 
 // scala.collection.immutable.IndexedSeq
@@ -103,9 +103,4 @@ for {
 */
 def scalarProduct(xs: List[Double], ys: List[Double]) : Double =
   (for ((x, y) <- xs zip ys) yield x * y).sum
-
-
-
-=======
->>>>>>> Stashed changes
 

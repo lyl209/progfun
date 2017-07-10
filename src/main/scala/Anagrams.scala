@@ -1,5 +1,6 @@
 package forcomp
 
+import common._
 
 object Anagrams {
 
@@ -27,12 +28,10 @@ object Anagrams {
     */
   val dictionary: List[Word] = loadDictionary
 
-  /** Converts the word into its character occurrence list.
+  /** Converts the word into its character occurence list.
     *
     *  Note: the uppercase and lowercase version of the character are treated as the
     *  same character, and are represented as a lowercase character in the occurrence list.
-    *
-    *  Note: you must use `groupBy` to implement this method!
     */
   def wordOccurrences(w: Word): Occurrences = {
     val result: Map[Char, Array[Char]] = w.toLowerCase.toCharArray.groupBy((c: Char) => c)
@@ -43,7 +42,9 @@ object Anagrams {
 
   /** Converts a sentence into its character occurrence list. */
   def sentenceOccurrences(s: Sentence): Occurrences = {
-    wordOccurrences(s reduceLeft (_ + _))
+    if (s.isEmpty) List()
+    else
+      wordOccurrences(s reduceLeft (_ + _))
   }
 
   /** The `dictionaryByOccurrences` is a `Map` from different occurrences to a sequence of all
@@ -63,7 +64,6 @@ object Anagrams {
     */
   lazy val dictionaryByOccurrences: Map[Occurrences, List[Word]] =
     dictionary.groupBy((w: Word) => wordOccurrences(w))
-
 
   /** Returns all the anagrams of a given word. */
   def wordAnagrams(word: Word): List[Word] = {
@@ -123,8 +123,27 @@ object Anagrams {
     *  Note: the resulting value is an occurrence - meaning it is sorted
     *  and has no zero-entries.
     */
-  def subtract(x: Occurrences, y: Occurrences): Occurrences = ???
+  def subtract(x: Occurrences, y: Occurrences): Occurrences = {
 
+    val xmap = x.toMap
+    val ymap = y.toMap
+
+    def minus(maps: Map[Char, Int], pair: (Char, Int)): Map[Char, Int] = {
+      val value = maps(pair._1) - pair._2
+
+      if (value == 0) maps - pair._1 // remove item
+      else maps.updated(pair._1, value)
+    }
+    (ymap foldLeft xmap)(minus).toList.sorted
+
+    /*
+      def minus(terms: Map[Char, Int], term: (Char, Int)): Map[Char, Int] = {
+        val (char, count) = term
+        terms + (char -> (terms(char) - count))
+      }
+      (ymap foldLeft xmap)(minus).filter(_._2 > 0).toList.sorted
+    */
+  }
 
   /** Returns a list of all anagram sentences of the given sentence.
     *
@@ -166,5 +185,18 @@ object Anagrams {
     *
     *  Note: There is only one anagram of an empty sentence.
     */
-  def sentenceAnagrams(sentence: Sentence): List[Sentence] = ???
+  def sentenceAnagrams(sentence: Sentence): List[Sentence] = {
+    def iter(occ: Occurrences): List[Sentence] =
+      if (occ.isEmpty) List(List())
+      else (
+        for {
+          combo <- combinations(occ)
+          word <- (dictionaryByOccurrences withDefaultValue List())(combo)
+          rest <- iter(subtract(occ, combo))
+
+        } yield word :: rest).toList
+
+    iter(sentenceOccurrences(sentence))
+  }
+
 }

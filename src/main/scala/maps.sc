@@ -130,6 +130,9 @@ new Poly(Map(1 -> 2.0, 3 -> 4.0, 5 -> 6.2))
 def Polynom(bindings: (Int, Double)*) =
   new Polynom(bindings.toMap withDefaultValue 0)
 
+// x^3 − 2x + 5 can be represented with the map
+// Map(0 -> 5, 1 -> 2, 3 -> 1)
+// Map(exp -> coeff)
 
 class Polynom(val terms0: Map[Int, Double]) {
 
@@ -142,7 +145,7 @@ class Polynom(val terms0: Map[Int, Double]) {
 
   def addTerm(terms: Map[Int, Double], term: (Int, Double)): Map[Int, Double] = {
     val (exp, coeff) = term
-    terms + (exp -> (coeff + terms(exp)))
+    terms + (exp -> (terms(exp) + coeff))
   }
 
   override def toString =
