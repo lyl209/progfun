@@ -156,4 +156,103 @@ What is the significance of the laws with respect to this?
 
 */
 
+// Another type: Try
+abstract class Try[+T]
+case class Success[T](x: T) extends Try[T]
+case class Failure(ex: Exception) extends Try[Nothing]
 
+
+// Creating a Try
+/*
+You can wrap up an arbitrary computation in a Try.
+Try(expr) // gives Success(someValue) or Failure(someException)
+Here’s an implementation of Try:
+
+object Try {
+  def apply[T](expr: => T): Try[T] =
+    try Success(expr)
+    catch {
+      case NonFatal(ex) => Failure(ex)
+    }
+
+*/
+
+// To support for expression like below we need to define map and flatMap
+/*
+for {
+  x <- computeX
+  y <- computeY
+} yield f(x, y)
+
+If computeX and computeY succeed with results Success(x) and Success(y),
+this will return Success(f(x, y)).
+  If either computation fails with an exception ex, this will return
+Failure(ex).
+
+
+abstract class Try[T] {
+
+  def flatMap[U](f: T => Try[U]): Try[U] = this match {
+    case Success(x) => try f(x) catch { case NonFatal(ex) => Failure(ex) }
+    case fail: Failure => fail
+  }
+
+  def map[U](f: T => U): Try[U] = this match {
+    case Success(x) => Try(f(x))
+    case fail: Failure => fail
+  }
+
+}
+
+So, for a Try value t,
+
+t map f == t flatMap (x => Try(f(x)))
+        == t flatMap (f andThen Try)
+
+*/
+
+// Exercise
+// It looks like Try might be a monad, with unit = Try.
+// Is it?
+
+/*
+O Yes
+O No, the associative law fails
+x No, the left unit law fails
+O No, the right unit law fails
+O No, two or more monad laws fail.
+*/
+
+
+// Solution
+/*
+It turns out the left unit law fails.
+  Try(expr) flatMap f != f(expr)
+
+Indeed the left-hand side will never raise a non-fatal exception whereas the
+right-hand side will raise any exception thrown by expr or f.
+
+Hence, Try trades one monad law for another law which is more useful in
+this context:
+
+  An expression composed from ‘Try‘, ‘map‘, ‘flatMap‘ will never
+  throw a non-fatal exception.
+
+Call this the “bullet-proof” principle
+*/
+
+// Conclusion
+/*
+We have seen that for-expressions are useful not only for collections.
+
+Many other types also define map,flatMap, and withFilter operations and
+with them for-expressions.
+
+  Examples: Generator, Option, Try.
+
+Many of the types defining flatMap are monads.
+
+(If they also define withFilter, they are called “monads with zero”).
+
+The three monad laws give useful guidance in the design of library APIs.
+*/
